@@ -112,7 +112,7 @@ export const useLogin = defineMutation(() => {
 <script setup lang="ts">
 import { useLogin } from '@/entities/account'
 
-const { mutateAsync: login, isPending, error } = useLogin()
+const { mutateAsync: login, isLoading, error } = useLogin()
 
 async function handleSubmit(values: { email: string; password: string }) {
   await login(values)

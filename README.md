@@ -15,6 +15,7 @@
 - **vee-validate + Zod** — валидация форм
 - **Axios** — HTTP клиент
 - **Maska** — маски ввода для форм
+- **VueUse** — коллекция композаблов для Vue 3
 
 ## Быстрый старт
 
@@ -83,6 +84,7 @@ src/
 - [**Pinia Colada**](./docs/pinia-colada.md) — управление асинхронным состоянием
 - [**Forms & Validation**](./docs/forms.md) — валидация форм с vee-validate и Zod
 - [**Tailwind CSS v4**](./docs/tailwind.md) — стилизация с tailwind-variants
+- [**VueUse**](./docs/vueuse.md) — коллекция композаблов для Vue 3
 
 ## Основные концепции FSD
 
@@ -223,6 +225,7 @@ const { data: todos, isLoading } = useTodos()
 - [tailwind-variants](https://www.tailwind-variants.org/)
 - [vee-validate](https://vee-validate.logaretm.com/v4/)
 - [Zod](https://zod.dev/)
+- [VueUse](https://vueuse.org/)
 
 ### Руководства
 
