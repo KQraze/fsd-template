@@ -140,7 +140,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div :class="cardVariants({ shadow: props.shadow })">
+  <div :class="cardVariants({ shadow })">
     <slot />
   </div>
 </template>
@@ -149,7 +149,7 @@ const props = withDefaults(defineProps<Props>(), {
 ### Работа с API (entity)
 
 ```typescript
-// entities/todos/services/todos.service.ts
+// entities/todos/api/todos.service.ts
 import { api } from '@/shared/api'
 import type { Todo } from '../types/todos.types'
 
@@ -162,7 +162,7 @@ export const todosService = {
 ```typescript
 // entities/todos/queries/todos.queries.ts
 import { defineQuery, useQuery } from '@pinia/colada'
-import { todosService } from '../services'
+import { todosService } from '../api'
 
 export const useTodos = defineQuery(() => {
   return useQuery({

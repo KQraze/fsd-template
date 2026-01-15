@@ -2,21 +2,21 @@
 
 ## Что такое FSD?
 
-FSD — это способ организации кода, где каждая часть приложения находится на своем "слое" и в своем "слайсе". Представьте, что ваше приложение — это слоеный пирог:
+FSD — это способ организации кода, где каждая часть приложения находится на своем "слое" и в своем "слайсе". Код структурирован по уровням абстракции и бизнес-логики:
 
 ```
 ┌─────────────────────────────────────┐
-│  app/     — рецепт (как испечь)    │  ← Верхний слой
+│  app/     — инициализация и роутинг │  ← Верхний слой
 ├─────────────────────────────────────┤
-│  pages/   — готовые куски пирога   │
+│  pages/   — страницы приложения     │
 ├─────────────────────────────────────┤
-│  widgets/ — начинки из ингредиентов│
+│  widgets/ — композитные блоки UI    │
 ├─────────────────────────────────────┤
-│  features/— способы приготовления  │
+│  features/— действия пользователя   │
 ├─────────────────────────────────────┤
-│  entities/— основные ингредиенты   │
+│  entities/— бизнес-сущности         │
 ├─────────────────────────────────────┤
-│  shared/  — кухонные инструменты   │  ← Нижний слой
+│  shared/  — переиспользуемый код    │  ← Нижний слой
 └─────────────────────────────────────┘
 ```
 
@@ -80,7 +80,7 @@ shared/ui/button/LoginButton.vue
 ```
 entities/account/
 ├── model/        # Публичное API (queries, composables)
-├── services/     # API запросы (accountService.login)
+├── api/          # API запросы (accountService.login)
 ├── queries/      # Pinia Colada (useProfile, useLogin)
 ├── types/        # TypeScript типы (Account, LoginBody)
 └── index.ts      # Экспорт наружу
@@ -307,7 +307,7 @@ export interface CreateTodoBody {
 }
 ```
 
-2. Создайте сервис `entities/todos/services/todos.service.ts`:
+2. Создайте сервис `entities/todos/api/todos.service.ts`:
 ```typescript
 import { api } from '@/shared/api'
 import type { Todo, CreateTodoBody } from '../types/todos.types'
@@ -332,7 +332,7 @@ export const TODOS_QUERY_KEYS = {
 4. Создайте queries `entities/todos/queries/todos.queries.ts`:
 ```typescript
 import { defineQuery, useQuery, defineMutation, useMutation, useQueryCache } from '@pinia/colada'
-import { todosService } from '../services'
+import { todosService } from '../api'
 import { TODOS_QUERY_KEYS } from './todos.keys'
 
 export const useTodos = defineQuery(() => {
@@ -357,7 +357,7 @@ export const useCreateTodo = defineMutation(() => {
 5. Экспортируйте в `entities/todos/index.ts`:
 ```typescript
 export * from './queries'
-export * from './services'
+export * from './api'
 export type * from './types/todos.types'
 ```
 
@@ -404,7 +404,7 @@ export function formatDate(date: Date): string {
 Да! Из нижних слоев в верхние импортировать можно.
 
 ```typescript
-// entities/account/services/account.service.ts
+// entities/account/api/account.service.ts
 import { api } from '@/shared/api' // ✅ Можно
 ```
 

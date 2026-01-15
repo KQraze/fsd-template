@@ -45,7 +45,7 @@ queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.profile() })
 // entities/account/queries/account.queries.ts
 import { defineQuery, useQuery } from '@pinia/colada'
 import { useAuth } from '@/shared/composables'
-import { accountService } from '../services'
+import { accountService } from '../api'
 import { ACCOUNT_QUERY_KEYS } from './account.keys'
 
 export const useProfile = defineQuery(() => {
@@ -83,7 +83,7 @@ const { data: profile, isLoading, error } = useProfile()
 import { defineMutation, useMutation, useQueryCache } from '@pinia/colada'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/shared/composables'
-import { accountService } from '../services'
+import { accountService } from '../api'
 import { ACCOUNT_QUERY_KEYS } from './account.keys'
 
 export const useLogin = defineMutation(() => {
@@ -148,7 +148,7 @@ entities/account/
 │   ├── account.keys.ts      # ACCOUNT_QUERY_KEYS
 │   ├── account.queries.ts   # useProfile, useLogin, useLogout
 │   └── index.ts             # Public API
-├── services/
+├── api/
 │   ├── account.service.ts   # API методы
 │   └── index.ts
 └── model/

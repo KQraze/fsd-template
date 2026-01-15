@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { vMaska } from 'maska/vue'
-import { inputVariants, type InputVariants } from './input.variants'
+import { inputVariants, type InputVariants } from '@/shared'
 
 interface Props {
   size?: InputVariants['size']
@@ -12,7 +12,7 @@ interface Props {
   mask?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   type: 'text',
   modelValue: '',
   disabled: false,
@@ -28,12 +28,12 @@ defineEmits<{
 <template>
   <input
     v-maska
-    :data-maska="props.mask"
-    :type="props.type"
-    :value="props.modelValue"
-    :placeholder="props.placeholder"
-    :disabled="props.disabled"
-    :class="inputVariants({ size: props.size, error: props.error, disabled: props.disabled })"
+    :data-maska="mask"
+    :type="type"
+    :value="modelValue"
+    :placeholder="placeholder"
+    :disabled="disabled"
+    :class="inputVariants({ size, error, disabled })"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 </template>

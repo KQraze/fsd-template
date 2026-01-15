@@ -71,6 +71,14 @@ const onSubmit = handleSubmit(async (values) => {
               class="pl-10"
             />
           </div>
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <app-icon name="lock" :size="20" class="text-gray-400" />
+            </div>
+            <app-input
+              class="pl-10"
+            />
+          </div>
           <p v-if="errors.password" class="mt-1.5 text-sm text-red-500">
             {{ errors.password }}
           </p>

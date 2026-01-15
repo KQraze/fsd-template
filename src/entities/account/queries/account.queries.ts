@@ -29,7 +29,7 @@ export const useLogin = defineMutation(() => {
     mutation: accountService.login,
     onSuccess(data) {
       setToken(data.token)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.root })
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
       router.push(Routes.home)
     },
   })
@@ -44,7 +44,7 @@ export const useRegister = defineMutation(() => {
     mutation: accountService.register,
     onSuccess(data) {
       setToken(data.token)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.root })
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
       router.push(Routes.home)
     },
   })
@@ -60,7 +60,7 @@ export const useLogout = defineMutation(() => {
     onSuccess() {
       clearToken()
       queryCache.setQueryData(ACCOUNT_QUERY_KEYS.profile(), undefined)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.root })
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
       router.push(Routes.login)
     },
   })

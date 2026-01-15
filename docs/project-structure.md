@@ -110,7 +110,7 @@ entities/
 ├── account/                    # Сущность "Пользователь"
 │   ├── model/
 │   │   └── index.ts            # Реэкспорт queries
-│   ├── services/
+│   ├── api/
 │   │   ├── account.service.ts  # API методы (login, profile, logout)
 │   │   └── index.ts
 │   ├── queries/
@@ -126,7 +126,7 @@ entities/
 
 **Структура entity**:
 - `model/` — публичное API (queries, composables)
-- `services/` — HTTP запросы через axios
+- `api/` — HTTP запросы через axios
 - `queries/` — Pinia Colada (useQuery, useMutation)
 - `types/` — TypeScript интерфейсы
 
@@ -249,7 +249,7 @@ export default defineConfig({
 ```typescript
 // entities/account/index.ts
 export * from './model'
-export * from './services'
+export * from './api'
 export type * from './types/account.types'
 
 // shared/ui/button/index.ts
@@ -304,7 +304,7 @@ export * from './card'
 entities/todos/
 ├── model/
 │   └── index.ts
-├── services/
+├── api/
 │   ├── todos.service.ts
 │   └── index.ts
 ├── queries/

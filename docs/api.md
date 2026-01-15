@@ -11,7 +11,6 @@ import { ApiStatus } from './consts'
 
 export const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 10000,
   headers: {
     Accept: 'application/json',
   },
@@ -82,7 +81,7 @@ export interface PaginatedResponse<T> {
 Сервисы создаются в entities:
 
 ```typescript
-// entities/account/services/account.service.ts
+// entities/account/api/account.service.ts
 import { api } from '@/shared/api'
 import type { Account, LoginBody, LoginResponse } from '../types/account.types'
 
@@ -106,7 +105,7 @@ export const accountService = {
 ```typescript
 // entities/account/queries/account.queries.ts
 import { defineQuery, useQuery } from '@pinia/colada'
-import { accountService } from '../services'
+import { accountService } from '../api'
 import { ACCOUNT_QUERY_KEYS } from './account.keys'
 
 export const useProfile = defineQuery(() => {
@@ -140,7 +139,7 @@ shared/api/
 └── index.ts      # Public API
 
 entities/account/
-├── services/
+├── api/
 │   ├── account.service.ts
 │   └── index.ts
 └── queries/

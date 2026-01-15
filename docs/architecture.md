@@ -130,7 +130,7 @@ export function useAuth() {
 entities/account/
 ├── model/                    # Публичное API слайса
 │   └── index.ts              # Реэкспорт queries и composables
-├── services/                 # API запросы
+├── api/                      # API запросы
 │   ├── account.service.ts    # { login, profile, logout }
 │   └── index.ts
 ├── queries/                  # Pinia Colada
@@ -166,7 +166,7 @@ export interface LoginResponse {
 ```
 
 ```typescript
-// entities/account/services/account.service.ts
+// entities/account/api/account.service.ts
 import { api } from '@/shared/api'
 import type { Account, LoginBody, LoginResponse } from '../types/account.types'
 
@@ -193,7 +193,7 @@ export const ACCOUNT_QUERY_KEYS = {
 ```typescript
 // entities/account/queries/account.queries.ts
 import { defineQuery, useQuery, defineMutation, useMutation } from '@pinia/colada'
-import { accountService } from '../services'
+import { accountService } from '../api'
 import { ACCOUNT_QUERY_KEYS } from './account.keys'
 
 export const useProfile = defineQuery(() => {
@@ -223,7 +223,7 @@ export const useLogin = defineMutation(() => {
 ```typescript
 // entities/account/index.ts — Public API
 export * from './model'
-export * from './services'
+export * from './api'
 export type * from './types/account.types'
 ```
 
@@ -625,7 +625,7 @@ import { useProfile } from '@/entities/account' // ✅
 ```typescript
 // entities/account/index.ts
 export * from './model'
-export * from './services'
+export * from './api'
 export type * from './types/account.types'
 
 // features/auth-form/index.ts
