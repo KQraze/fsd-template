@@ -52,19 +52,7 @@ pages/
     └── LoginPage.vue           # Страница входа
 ```
 
-**Особенности**:
-- **НЕТ** `index.ts` файлов (для lazy loading)
-- Каждая страница = отдельный роут
-- Только композиция, минимум логики
-
-**Роутинг**:
-```typescript
-// shared/lib/router/routes.ts
-{
-  path: '/',
-  component: () => import('@/pages/home/HomePage.vue')
-}
-```
+**Особенность**: Нет `index.ts` для lazy loading
 
 ### src/widgets/ — Композитные блоки
 
@@ -77,19 +65,9 @@ widgets/
 └── index.ts                    # Общий Public API widgets
 ```
 
-**Назначение**:
-- Крупные блоки UI
-- Композиция features + entities
-- Переиспользуемые на разных страницах
+> Подробнее о widgets в [getting-started.md](./getting-started.md#widgets--композитные-блоки)
 
 ### src/features/ — Пользовательские сценарии
-
-```
-features/
-└── index.ts                    # Public API (пока пусто)
-```
-
-**Примеры features** (которые можно добавить):
 ```
 features/
 ├── auth-form/                  # Форма входа/регистрации
@@ -106,6 +84,8 @@ features/
 │   └── index.ts
 └── index.ts
 ```
+
+> Подробнее о features в [getting-started.md](./getting-started.md#features--пользовательские-сценарии)
 
 ### src/entities/ — Бизнес-сущности
 
@@ -128,11 +108,7 @@ entities/
 └── index.ts                    # Общий Public API entities
 ```
 
-**Структура entity**:
-- `model/` — публичное API (queries, composables)
-- `api/` — HTTP запросы через axios
-- `queries/` — Pinia Colada (useQuery, useMutation)
-- `types/` — TypeScript интерфейсы
+> Подробнее о entities в [getting-started.md](./getting-started.md#entities--бизнес-сущности)
 
 ### src/shared/ — Переиспользуемый код
 
@@ -169,10 +145,7 @@ shared/
 └── index.ts                    # Главный Public API shared
 ```
 
-**Принципы shared/**:
-- Код **не знает** о бизнес-логике
-- Может быть переиспользован в любом проекте
-- Универсальные утилиты и компоненты
+> Подробнее о shared в [getting-started.md](./getting-started.md#shared--общий-код)
 
 ## Файлы конфигурации
 
@@ -248,122 +221,12 @@ export default defineConfig({
 
 ## Public API
 
-Каждый слой и слайс экспортирует функционал только через `index.ts`:
+Каждый слой экспортирует функционал только через `index.ts`. Подробнее в [getting-started.md](./getting-started.md#правила-импортов)
 
-```typescript
-// entities/account/index.ts
-export * from './model'
-export * from './api'
-export type * from './types/account.types'
+## Следующие шаги
 
-// shared/ui/button/index.ts
-export { default as AppButton } from './AppButton.vue'
-export { buttonVariants, type ButtonVariants } from './button.variants'
-
-// shared/ui/index.ts
-export * from './button'
-export * from './input'
-export * from './icon'
-
-// shared/index.ts
-export * from './ui'
-export * from './api'
-export * from './lib'
-export * from './composables'
-```
-
-**Использование**:
-```typescript
-// ✅ Правильно — через Public API
-import { AppButton, AppInput } from '@/shared/ui'
-import { useProfile } from '@/entities/account'
-import { api } from '@/shared/api'
-
-// ❌ Неправильно — обход Public API
-import AppButton from '@/shared/ui/button/AppButton.vue'
-import { useProfile } from '@/entities/account/queries/account.queries'
-```
-
-## Добавление нового кода
-
-### Новый UI компонент
-
-1. Создайте папку в `shared/ui/`:
-```
-shared/ui/card/
-├── AppCard.vue
-├── card.variants.ts
-└── index.ts
-```
-
-2. Добавьте в `shared/ui/index.ts`:
-```typescript
-export * from './card'
-```
-
-### Новая entity
-
-1. Создайте структуру:
-```
-entities/todos/
-├── model/
-│   └── index.ts
-├── api/
-│   ├── todos.service.ts
-│   └── index.ts
-├── queries/
-│   ├── todos.keys.ts
-│   ├── todos.queries.ts
-│   └── index.ts
-├── types/
-│   ├── todos.types.ts
-│   └── index.ts
-└── index.ts
-```
-
-2. Добавьте в `entities/index.ts`:
-```typescript
-export * from './todos'
-```
-
-### Новая feature
-
-1. Создайте структуру:
-```
-features/todo-create/
-├── ui/
-│   └── TodoCreate.vue
-├── lib/
-│   └── validation.ts
-└── index.ts
-```
-
-2. Добавьте в `features/index.ts`:
-```typescript
-export * from './todo-create'
-```
-
-### Новая страница
-
-1. Создайте папку в `pages/`:
-```
-pages/about/
-└── AboutPage.vue
-```
-
-2. Добавьте роут в `shared/lib/router/routes.ts`:
-```typescript
-{
-  path: '/about',
-  name: 'about',
-  component: () => import('@/pages/about/AboutPage.vue')
-}
-```
-
-## Дополнительные материалы
-
-- [getting-started.md](./getting-started.md) — руководство для начинающих
-- [architecture.md](./architecture.md) — подробное описание FSD
-- [components.md](./components.md) — создание UI компонентов
-- [api.md](./api.md) — работа с API
+После изучения структуры проекта переходите к:
+- [getting-started.md](./getting-started.md) — как создавать новые компоненты, entities, features
+- [architecture.md](./architecture.md) — глубокое погружение в правила FSD
+- [api.md](./api.md) — работа с HTTP запросами
 - [pinia-colada.md](./pinia-colada.md) — управление асинхронным состоянием
