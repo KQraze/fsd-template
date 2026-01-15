@@ -259,6 +259,8 @@ const { mutateAsync: login } = useLogin()
 features/auth-form/
 ├── ui/
 │   └── AuthForm.vue          # Форма входа
+├── lib/
+│   └── validation.ts         # Схемы валидации (Zod)
 ├── model/
 │   └── use-auth-form.ts      # Логика формы (опционально)
 └── index.ts
@@ -266,24 +268,29 @@ features/auth-form/
 
 **Примеры**:
 
-```vue
-<!-- features/auth-form/ui/AuthForm.vue -->
-<script setup lang="ts">
-import { useForm } from 'vee-validate'
+```typescript
+// features/auth-form/lib/validation.ts
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { AppInput, AppButton } from '@/shared/ui'
-import { useLogin } from '@/entities/account' // ← импорт из entities
 
-const schema = toTypedSchema(
+export const loginSchema = toTypedSchema(
   z.object({
     email: z.string().email('Некорректный email'),
     password: z.string().min(6, 'Минимум 6 символов'),
   })
 )
+```
+
+```vue
+<!-- features/auth-form/ui/AuthForm.vue -->
+<script setup lang="ts">
+import { useForm } from 'vee-validate'
+import { AppInput, AppButton } from '@/shared/ui'
+import { useLogin } from '@/entities/account' // ← импорт из entities
+import { loginSchema } from '../lib/validation'
 
 const { defineField, handleSubmit, errors } = useForm({
-  validationSchema: schema,
+  validationSchema: loginSchema,
 })
 
 const [email, emailAttrs] = defineField('email')
@@ -322,6 +329,7 @@ const onSubmit = handleSubmit(async (values) => {
 ```typescript
 // features/auth-form/index.ts
 export { default as AuthForm } from './ui/AuthForm.vue'
+export * from './lib/validation'
 ```
 
 **Отличие от entities**:

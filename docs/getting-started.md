@@ -115,6 +115,8 @@ const { mutateAsync: login } = useLogin()
 features/auth-form/
 ├── ui/
 │   └── AuthForm.vue    # Форма с полями и валидацией
+├── lib/
+│   └── validation.ts   # Схемы валидации (Zod)
 ├── model/
 │   └── index.ts        # Логика (если нужна)
 └── index.ts
@@ -209,21 +211,17 @@ shared (никуда не импортирует из слоев выше)
 1. Создайте страницу в `pages/`:
 ```vue
 <!-- pages/about/AboutPage.vue -->
-<script setup lang="ts">
-import { DefaultLayout } from '@/app/layouts'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <default-layout>
     <h1>О нас</h1>
-  </default-layout>
 </template>
 ```
 
 2. Добавьте роут в `shared/lib/router/routes.ts`:
 ```typescript
 {
-  path: '/about',
+  path: Routes.about,
   name: 'about',
   component: () => import('@/pages/about/AboutPage.vue')
 }
@@ -431,4 +429,4 @@ import { AuthForm } from '@/features/auth-form' // ❌ Нельзя
 3. Посмотрите [components.md](./components.md) — создание UI компонентов
 4. Изучите [api.md](./api.md) — работа с API
 
-Удачи в разработке! 🚀
+Удачи в разработке! 

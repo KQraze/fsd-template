@@ -95,10 +95,14 @@ features/
 ├── auth-form/                  # Форма входа/регистрации
 │   ├── ui/
 │   │   └── AuthForm.vue
+│   ├── lib/
+│   │   └── validation.ts       # Схемы валидации (Zod)
 │   └── index.ts
 ├── todo-create/                # Создание задачи
 │   ├── ui/
 │   │   └── TodoCreate.vue
+│   ├── lib/
+│   │   └── validation.ts       # Схемы валидации (Zod)
 │   └── index.ts
 └── index.ts
 ```
@@ -329,6 +333,8 @@ export * from './todos'
 features/todo-create/
 ├── ui/
 │   └── TodoCreate.vue
+├── lib/
+│   └── validation.ts
 └── index.ts
 ```
 
