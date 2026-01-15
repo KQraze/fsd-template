@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  background: #e1e1e1;
+}
+
+#app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+@theme {
+  /* Colors */
+  --color-brand: #3b82f6;
+  --color-brand-dark: #1d4ed8;
+  --color-brand-light: #60a5fa;
+  --color-accent: #8b5cf6;
+  --color-accent-dark: #7c3aed;
+
+  /* Fonts */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
