@@ -19,9 +19,9 @@ app.use(PiniaColada)
 ```typescript
 // entities/account/queries/account.keys.ts
 export const ACCOUNT_QUERY_KEYS = {
-  root: ['account'] as const,
-  profile: () => [...ACCOUNT_QUERY_KEYS.root, 'profile'] as const,
-  byId: (id: number) => [...ACCOUNT_QUERY_KEYS.root, id] as const,
+  all: ['account'] as const,
+  profile: () => [...ACCOUNT_QUERY_KEYS.all, 'profile'] as const,
+  byId: (id: number) => [...ACCOUNT_QUERY_KEYS.all, id] as const,
 }
 ```
 
@@ -29,7 +29,7 @@ export const ACCOUNT_QUERY_KEYS = {
 
 ```typescript
 // Инвалидация всех account запросов
-queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.root })
+queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
 // Очищает: ['account'], ['account', 'profile'], ['account', 123]
 
 // Инвалидация только profile
@@ -96,7 +96,7 @@ export const useLogin = defineMutation(() => {
     onSuccess(data) {
       setToken(data.token)
       // Инвалидация кеша после логина
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.root })
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
       router.push('/')
     },
     onError(error) {
@@ -124,9 +124,9 @@ async function handleSubmit(values: { email: string; password: string }) {
 
 ```typescript
 export const USERS_QUERY_KEYS = {
-  root: ['users'] as const,
-  list: (params: UserParams) => [...USERS_QUERY_KEYS.root, 'list', params] as const,
-  byId: (id: number) => [...USERS_QUERY_KEYS.root, id] as const,
+    all: ['users'] as const,
+  list: (params: UserParams) => [...USERS_QUERY_KEYS.all, 'list', params] as const,
+  byId: (id: number) => [...USERS_QUERY_KEYS.all, id] as const,
 }
 
 export const useUsers = defineQuery(() => {

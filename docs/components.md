@@ -67,9 +67,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <button
-    :type="props.type"
-    :disabled="props.disabled"
-    :class="buttonVariants({ variant: props.variant, size: props.size, fullWidth: props.fullWidth })"
+    :type="type"
+    :disabled="disabled"
+    :class="buttonVariants({ variant, size, fullWidth })"
   >
     <slot />
   </button>
@@ -141,23 +141,17 @@ interface Props {
   size?: number | string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 24,
-})
+const props = defineProps<Props>()
 
 const iconComponent = computed<Component>(() => {
   return defineAsyncComponent(() => import(`@/assets/icons/${props.name}.svg`))
 })
 
-const iconSize = computed(() => {
-  return typeof props.size === 'number' ? `${props.size}px` : props.size
-})
 </script>
 
 <template>
   <component
     :is="iconComponent"
-    :style="{ width: iconSize, height: iconSize }"
     class="inline-block shrink-0"
   />
 </template>
@@ -167,7 +161,7 @@ const iconSize = computed(() => {
 
 ```vue
 <app-icon name="arrow-right" />
-<app-icon name="user" :size="32" />
+<app-icon name="user" />
 ```
 
 ### Правила работы с SVG иконками

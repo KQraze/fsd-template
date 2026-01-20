@@ -115,8 +115,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <button
-    :disabled="props.disabled"
-    :class="buttonVariants({ variant: props.variant, size: props.size, fullWidth: props.fullWidth })"
+    :disabled="disabled"
+    :class="buttonVariants({ variant, size, fullWidth })"
   >
     <slot />
   </button>

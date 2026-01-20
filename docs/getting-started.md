@@ -273,7 +273,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div :class="cardVariants({ shadow: props.shadow })">
+  <div :class="cardVariants({ shadow })">
     <slot />
   </div>
 </template>
@@ -322,8 +322,8 @@ export const todosService = {
 3. Создайте query keys `entities/todos/queries/todos.keys.ts`:
 ```typescript
 export const TODOS_QUERY_KEYS = {
-  root: ['todos'] as const,
-  list: () => [...TODOS_QUERY_KEYS.root, 'list'] as const,
+  all: ['todos'] as const,
+  list: () => [...TODOS_QUERY_KEYS.all, 'list'] as const,
 }
 ```
 
@@ -346,7 +346,7 @@ export const useCreateTodo = defineMutation(() => {
   return useMutation({
     mutation: todosService.create,
     onSuccess() {
-      queryCache.invalidateQueries({ key: TODOS_QUERY_KEYS.root })
+      queryCache.invalidateQueries({ key: TODOS_QUERY_KEYS.all })
     },
   })
 })
